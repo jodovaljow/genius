@@ -1,0 +1,1 @@
+var checadorSequencia = new ChecadorSequencia()
