@@ -13,12 +13,6 @@ describe('Testar checador de sequencia', () => {
         return checadorSequencia;
     });
 
-    afterAll(() => {
-
-        checadorSequencia = new ChecadorSequencia()
-        return checadorSequencia;
-    });
-
     describe('Inicializar', () => {
 
         test('Checar se inicializado', () => {
