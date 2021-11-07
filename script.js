@@ -1,1 +1,1 @@
-var checadorSequencia = new ChecadorSequencia()
+var game = new Game()

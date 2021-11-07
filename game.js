@@ -1,5 +1,3 @@
-const { ChecadorSequencia } = require("./checadorSequencia");
-
 class Game {
 
     checadorSequencia = new ChecadorSequencia()
@@ -10,19 +8,17 @@ class Game {
 
         this.reset()
 
-        this.setStatus('iniciado')
+        this.avancarNivel()
     }
 
     reset() {
 
         this.checadorSequencia.resetAndamento()
         this.checadorSequencia.resetSequencia()
-        this.pontuacao = 0
+        this.resetPontuacao()
     }
 
     parar() {
-
-        this.reset()
 
         this.setStatus('parado')
     }
@@ -34,8 +30,14 @@ class Game {
 
     avancarNivel() {
 
+        this.setStatus('iniciado')
+        this.checadorSequencia.resetAndamento()
         this.incrementarSequencia()
-        this.exibirSequencia()
+
+        setTimeout(() => {
+
+            this.exibirSequencia()
+        }, 500);
     }
 
     check(botao) {
@@ -43,6 +45,8 @@ class Game {
         if (this.status !== 'lendo') {
             return
         }
+
+        this.blinkElementId(botao)
 
         const acertou = this.checadorSequencia.check(botao)
 
@@ -53,8 +57,7 @@ class Game {
             if (this.checadorSequencia.isCheckedTotal()) {
 
                 this.incrementarPontuacao()
-
-                this.setStatus('parado')
+                this.avancarNivel()
             }
         }
         else {
@@ -66,6 +69,22 @@ class Game {
     exibirSequencia() {
 
         this.setStatus('mostrando')
+
+        for (let index = 0; index < this.checadorSequencia.sequencia.length; index++) {
+
+            const botao = this.checadorSequencia.sequencia[index];
+
+            setTimeout(() => {
+
+                this.showElementId(botao)
+            }, 1100 * index);
+        }
+
+        setTimeout(() => {
+
+            this.lerSequencia()
+        }, 1100 * this.checadorSequencia.sequencia.length + 1);
+
     }
 
     lerSequencia() {
@@ -73,14 +92,40 @@ class Game {
         this.setStatus('lendo')
     }
 
+    resetPontuacao() {
+
+        this.pontuacao = 0;
+        this.refreshElementPontuacao()
+    }
+
     incrementarPontuacao() {
 
         this.pontuacao++;
+
+        this.refreshElementPontuacao()
+    }
+
+    refreshElementPontuacao() {
+
+        const elementPontuacao = document.getElementById('pontuacao')
+        elementPontuacao.innerText = this.pontuacao
+    }
+
+    refreshElementBotaoIniciar() {
+
+        const elementBotaoIniciar = document.getElementById('botaoIniciar')
+
+        if (this.status == 'parado')
+            elementBotaoIniciar.style.visibility = 'visible'
+        else {
+            elementBotaoIniciar.style.visibility = 'hidden'
+        }
     }
 
     setStatus(status) {
 
         this.status = status
+        this.refreshElementBotaoIniciar()
     }
 
     randomBotao() {
@@ -93,6 +138,28 @@ class Game {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    setAnimationButton(idButton, animation, duration) {
+
+        const botao = document.getElementById(idButton)
+
+        botao.classList.add(animation)
+
+        setTimeout(() => {
+
+            botao.classList.remove(animation)
+        }, duration);
+    }
+
+    blinkElementId(id) {
+
+        this.setAnimationButton(id, 'blink', 100)
+    }
+
+    showElementId(id) {
+
+        this.setAnimationButton(id, 'show', 1000)
     }
 }
 

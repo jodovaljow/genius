@@ -11,13 +11,24 @@
 <body>
     <div class="main-game">
         <div class="genius">
-            <div id="blue"></div>
-            <div id="yellow"></div>
-            <div id="red"></div>
-            <div id="green"></div>
+            <div id="blue" onclick="game.check(this.id)"></div>
+            <div id="yellow" onclick="game.check(this.id)"></div>
+            <div id="red" onclick="game.check(this.id)"></div>
+            <div id="green" onclick="game.check(this.id)"></div>
         </div>
+
+        <aside>
+
+            <section class="placar">
+
+                <span>pontuação</span>
+                <h1 id="pontuacao">0</h1>
+            </section>
+            <button onclick="game.iniciar()" id="botaoIniciar">iniciar > </button>
+        </aside>
     </div>
     <script type="text/javascript" src="checadorSequencia.js"></script>
+    <script type="text/javascript" src="game.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </body>
 

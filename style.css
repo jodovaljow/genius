@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: rgb(208, 255, 239);
+  background-color: #000;
 }
 
 .main-game {
@@ -17,11 +17,36 @@ body {
     "verde vermelho"
     "amarelo azul";
   grid-gap: 10px;
-  border: 1px solid #ffffff;
-  background-color: #ffffff;
   border-radius: 100%;
-  width: 700px;
-  height: 700px;
+  width: 90vh;
+  height: 90vh;
+}
+
+.placar {
+  color: red;
+  border: 1px solid red;
+  background-color: antiquewhite;
+  text-align: center;
+  margin: 10px;
+  min-width: 80px;
+  width: 100%;
+}
+
+#pontuacao {
+  border: 1px solid red;
+  background-color: antiquewhite;
+  background-color: #333;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  min-width: 80px;
+}
+
+#botaoIniciar{
+  background-color: green;
+  margin: 0px 10px;
+  padding: 10px;
+  width: 100%;
 }
 
 #blue {
@@ -50,4 +75,24 @@ body {
 
 .selected {
   opacity: 0.8;
+}
+
+.blink {
+  animation: blink 0.1s linear;
+}
+
+.show {
+  animation: blink 1s linear;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
